@@ -35,6 +35,8 @@ spring:
       discovery:
         locator:
           enabled: true
+          filters:
+            - PreserveHostHeader
       globalcors:
         cors-configurations:
           '[/**]':
