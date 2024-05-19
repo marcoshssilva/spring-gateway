@@ -9,6 +9,6 @@ RUN mvn install
 
 FROM eclipse-temurin:17-jre-focal AS java
 COPY --from=builder /build/target/spring-cloud-gateway-*.jar app.jar
-ENTRYPOINT java -XX:+UseContainerSupport -XX:MaxRAMPercentage=80 ${JAVA_OPTS:} -jar app.jar
+ENTRYPOINT java -XX:+UseContainerSupport -XX:MaxRAMPercentage=80 $JAVA_OPTS -jar app.jar
 
 EXPOSE 8080
