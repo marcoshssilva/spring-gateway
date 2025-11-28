@@ -3,7 +3,6 @@ pipelineUsingJava17AndMavenWithPublicDockerImage('marcoshssilva/spring-gateway',
     [
         'APP_NAME': 'spring-gateway',
         'DEPLOY': 'DOKKU',
-        'DOKKU_SELECTED_BUILDPACK': 'herokuish', // Options can be 'dockerfile', 'null' and DEFAULT 'herokuish'
-        'HOST': 'spring-gateway.g.starlord443.dev',
+        'DOKKU_SELECTED_BUILDPACK': 'pack'
     ],
 )
