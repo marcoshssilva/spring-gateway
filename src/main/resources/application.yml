@@ -29,7 +29,7 @@ management:
     port: ${MANAGEMENT_PORT:8180}
 spring:
   application:
-    name: spring-api-gateway
+    name: ${APP_NAME:spring-cloud-apigateway-discoverylocator}
   cloud:
     gateway:
       discovery:
