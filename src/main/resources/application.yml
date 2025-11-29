@@ -25,10 +25,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: gateway,health,info
+        include: gateway,health,info,metrics
     jmx:
       exposure:
-        include: gateway,health,info
+        include: gateway,health,info,metrics
   endpoint:
     gateway:
       access: read-only
