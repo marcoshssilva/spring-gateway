@@ -18,8 +18,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: gateway,health
   endpoint:
+    gateway:
+      access: read-only
     health:
       show-details: ALWAYS
       show-components: ALWAYS
@@ -40,14 +42,6 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: '*'
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - HEAD
-              - OPTIONS
-            allowedHeaders:
-              - Content-type
-              - Authorization
+            allowedOrigins: ${GATEWAY_CORS_ALLOWED_ORIGINS:'*'}
+            allowedMethods: ${GATEWAY_CORS_ALLOWED_METHODS:'GET,POST,PUT,DELETE,HEAD,OPTIONS'}
+            allowedHeaders: ${GATEWAY_CORS_ALLOWED_HEADERS:'Content-type,Authorization'}
