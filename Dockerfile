@@ -20,11 +20,17 @@ COPY --from=builder --chmod=644 --chown=root:root /build/target/spring-cloud-gat
 
 USER 1001
 
+ARG OTEL_LOGS_EXPORTER
+ARG OTEL_EXPORTER_OTLP_ENDPOINT
+ARG OTEL_SERVICE_NAME
 ARG JAVA_VM_OPTIONS
 ARG PORT
 ARG MANAGEMENT_PORT
 
 ENV JAVA_VM_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=80 -javaagent:/app/opentelemetry-javaagent.jar"
+ENV OTEL_LOGS_EXPORTER="otlp"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
+ENV OTEL_SERVICE_NAME="spring-cloud-apigateway-discoverylocator"
 ENV PORT="8080"
 ENV MANAGEMENT_PORT="8080"
 
