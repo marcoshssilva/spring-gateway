@@ -17,12 +17,12 @@ management:
         batchSize: 10000
         aggregationTemporality: cumulative
         step: 1m
-        headers:
-          Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
+#        headers:
+#          Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
     tracing:
       endpoint: ${MANAGEMENT_OTLP_ENDPOINT_HTTP:http://localhost:4318}/v1/traces
-      headers:
-        Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
+#      headers:
+#        Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
   endpoints:
     web:
       exposure:
