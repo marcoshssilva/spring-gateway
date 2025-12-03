@@ -1,0 +1,36 @@
+services:
+  app:
+    container_name: spring-cloud-gateway
+    # image: dkpub.starlord443.dev/marcoshssilva/spring-gateway
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    env_file:
+      - ./env/app.env
+    depends_on:
+      - eureka
+      - otel-collector
+  eureka:
+    container_name: spring-cloud-eureka
+    restart: unless-stopped
+    image: dkpub.starlord443.dev/marcoshssilva/spring-eureka
+    ports:
+      - "8761:8761"
+    env_file:
+      - ./env/eureka.env
+    depends_on:
+      - otel-collector
+  otel-collector:
+    image: otel/opentelemetry-collector
+    restart: unless-stopped
+    container_name: otel-collector
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    volumes:
+      - ./etc/opentelemetry/collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    ports:
+      - "4317:4317"   # OTLP GRPC
+      - "4318:4318"   # OTLP HTTP
