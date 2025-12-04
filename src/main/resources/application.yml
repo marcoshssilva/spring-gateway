@@ -13,16 +13,19 @@ management:
   otlp:
     metrics:
       export:
-        url: ${MANAGEMENT_OTLP_ENDPOINT:http://localhost:4318}/v1/metrics
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}/v1/metrics
         batchSize: 10000
         aggregationTemporality: cumulative
         step: 1m
-#        headers:
-#          Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
+        enabled: ${MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED:true}
+#       headers: # prefer use OTEL_EXPORTER_OTLP_HEADERS
+#         Authorization: Bearer TOKEN
+#         Custom-Header: EHLO
     tracing:
-      endpoint: ${MANAGEMENT_OTLP_ENDPOINT_HTTP:http://localhost:4318}/v1/traces
-#      headers:
-#        Authorization: Bearer ${MANAGEMENT_OTLP_ENDPOINT_TOKEN:'no-value'}
+      endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}/v1/traces
+#     headers:  # prefer use OTEL_EXPORTER_OTLP_HEADERS
+#       Authorization: Bearer TOKEN
+#       Custom-Header: EHLO
   endpoints:
     web:
       exposure:
@@ -34,10 +37,12 @@ management:
     gateway:
       access: read-only
     health:
-      show-details: ALWAYS
-      show-components: ALWAYS
-    shutdown:
-      enabled: false
+      show-details: when_authorized
+      show-components: when_authorized
+    configprops:
+      show-values: when_authorized
+    env:
+      show-values: when_authorized
   server:
     port: ${MANAGEMENT_PORT:8180}
 spring:
