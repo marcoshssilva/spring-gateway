@@ -13,51 +13,54 @@ management:
   otlp:
     metrics:
       export:
-        url: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}/v1/metrics
-        batchSize: 10000
-        aggregationTemporality: cumulative
-        step: 1m
         enabled: ${MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED:true}
-#       headers: # prefer use OTEL_EXPORTER_OTLP_HEADERS
-#         Authorization: Bearer TOKEN
-#         Custom-Header: EHLO
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}/v1/metrics
+        batchSize: ${OTEL_EXPORTER_OTLP_BATCH_SIZE:100}
+        aggregationTemporality: ${OTEL_EXPORTER_OTLP_AGGREGATION_TEMPORALITY:cumulative}
+        step: ${OTEL_EXPORTER_OTLP_AGGREGATION_STEP:1m}
+        headers:
+          Custom-Header: EHLO
     tracing:
       endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}/v1/traces
-#     headers:  # prefer use OTEL_EXPORTER_OTLP_HEADERS
-#       Authorization: Bearer TOKEN
-#       Custom-Header: EHLO
+      export:
+        enabled: ${MANAGEMENT_OTLP_TRACING_EXPORT_ENABLED:true}
+        headers:
+          Custom-Header: EHLO
   endpoints:
+    jmx.exposure.include: "*"
     web:
-      exposure:
-        include: gateway,health,info,metrics,prometheus
-    jmx:
-      exposure:
-        include: gateway,health,info,metrics,prometheus
+      exposure.include: "*"
+      cors:
+        allowed-origins: ${MANAGEMENT_CORS_ALLOWED_ORIGINS:*}
+        allowed-methods: ${MANAGEMENT_CORS_ALLOWED_METHODS:*}
+        max-age: ${MANAGEMENT_CORS_ALLOWED_MAXAGE:3600}
   endpoint:
     gateway:
-      access: read-only
+      access: read_only
     health:
-      show-details: when_authorized
-      show-components: when_authorized
-    configprops:
-      show-values: when_authorized
+      show-details: always
+      show-components: always
     env:
-      show-values: when_authorized
+      show-values: always
+    configprops:
+      show-values: always
   server:
     port: ${MANAGEMENT_PORT:8180}
 spring:
   application:
-    name: ${APP_NAME:spring-cloud-apigateway-discoverylocator}
+    name: ${APP_NAME:spring-apigateway}
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          filters:
-            - PreserveHostHeader
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: ${GATEWAY_CORS_ALLOWED_ORIGINS:'*'}
-            allowedMethods: ${GATEWAY_CORS_ALLOWED_METHODS:'GET,POST,PUT,DELETE,HEAD,OPTIONS'}
-            allowedHeaders: ${GATEWAY_CORS_ALLOWED_HEADERS:'Content-type,Authorization'}
+      server:
+        webflux:
+          discovery:
+            locator:
+              filters:
+                - PreserveHostHeader
+              enabled: true
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins: ${GATEWAY_CORS_ALLOWED_ORIGINS:'*'}
+                allowedMethods: ${GATEWAY_CORS_ALLOWED_METHODS:'GET,POST,PUT,DELETE,HEAD,OPTIONS'}
+                allowedHeaders: ${GATEWAY_CORS_ALLOWED_HEADERS:'Content-type,Authorization'}
