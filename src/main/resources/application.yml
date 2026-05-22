@@ -43,7 +43,7 @@ management:
         max-age: ${MANAGEMENT_CORS_ALLOWED_MAXAGE:3600}
   endpoint:
     gateway:
-      access: read_only
+      access: unrestricted
     health:
       show-details: always
       show-components: always
@@ -64,6 +64,7 @@ spring:
             locator:
               filters:
                 - PreserveHostHeader
+                - StripPrefix=1
               enabled: true
           globalcors:
             cors-configurations:
