@@ -1,4 +1,5 @@
-pipelineSimpleMavenJavaProject('marcoshssilva/spring-gateway', 'jdk-17', 
+pipelineSimpleMavenJavaProject('marcoshssilva/spring-gateway', 
+                               'jdk-17', 
                                [
                                    'APP_NAME': 'spring-gateway',
                                    'DEPLOY': 'DOKKU',
