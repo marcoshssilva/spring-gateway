@@ -8,10 +8,10 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.marcoshssilva</groupId>
-	<artifactId>spring-cloud-gateway</artifactId>
+	<groupId>com.github.marcoshssilva</groupId>
+	<artifactId>spring-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-cloud-gateway</name>
+	<name>spring-gateway</name>
 	<description>API Gateway to Spring Boot Application using Eureka Service Discovery</description>
 	<properties>
 		<java.version>25</java.version>

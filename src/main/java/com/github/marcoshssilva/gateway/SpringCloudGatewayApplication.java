@@ -1,4 +1,4 @@
-package br.com.marcoshssilva.springcloudgateway;
+package com.github.marcoshssilva.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
