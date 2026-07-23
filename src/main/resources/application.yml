@@ -1,42 +1,5 @@
 server:
   port: ${PORT:8181}
-eureka:
-  instance:
-    leaseRenewalIntervalInSeconds: 30
-    health-check-url-path: /actuator/health
-    prefer-ip-address: true
-  client:
-    registryFetchIntervalSeconds: 5
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://admin:admin@localhost:8761/eureka/}
-management:
-  info:
-    env.enabled: true
-    java.enabled: true
-    os.enabled: true
-    process.enabled: true
-    git.enabled: true
-    git.mode: full
-  endpoints:
-    jmx.exposure.include: "*"
-    web:
-      exposure.include: "*"
-      cors:
-        allowed-origins: ${MANAGEMENT_CORS_ALLOWED_ORIGINS:*}
-        allowed-methods: ${MANAGEMENT_CORS_ALLOWED_METHODS:*}
-        max-age: ${MANAGEMENT_CORS_ALLOWED_MAXAGE:3600}
-  endpoint:
-    gateway:
-      access: unrestricted
-    health:
-      show-details: always
-      show-components: always
-    env:
-      show-values: always
-    configprops:
-      show-values: always
-  server:
-    port: ${MANAGEMENT_PORT:8180}
 spring:
   application:
     name: ${APP_NAME:spring-apigateway}
@@ -58,3 +21,47 @@ spring:
                 allowedOrigins: ${GATEWAY_CORS_ALLOWED_ORIGINS:'*'}
                 allowedMethods: ${GATEWAY_CORS_ALLOWED_METHODS:'GET,POST,PUT,DELETE,HEAD,OPTIONS'}
                 allowedHeaders: ${GATEWAY_CORS_ALLOWED_HEADERS:'Content-type,Authorization'}
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+    health-check-url-path: /actuator/health
+    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP_ADDRESS:false}
+  client:
+    enabled: true
+    registryFetchIntervalSeconds: ${EUREKA_CLIENT_FETCH_REGISTRY_INTERVAL_SECONDS:180}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:true}
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:true}
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://admin:admin@localhost:8761/eureka/}
+management:
+  server:
+    port: ${MANAGEMENT_PORT:8181}
+  info:
+    env.enabled: true
+    java.enabled: true
+    os.enabled: true
+    process.enabled: true
+    git.enabled: true
+    git.mode: full
+  endpoints:
+    jmx.exposure.include: "*"
+    web:
+      exposure.include: "*"
+      cors:
+        allowed-origins: ${MANAGEMENT_CORS_ALLOWED_ORIGINS:*}
+        allowed-methods: ${MANAGEMENT_CORS_ALLOWED_METHODS:*}
+        max-age: ${MANAGEMENT_CORS_ALLOWED_MAXAGE:3600}
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+    env:
+      show-values: always
+    configprops:
+      show-values: always
+    gateway:
+      access: read_only
+otel:
+  file_format: 1.0
+  sdk:
+    disabled: true
