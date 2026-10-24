@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.1</version>
+		<version>4.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.marcoshssilva</groupId>
@@ -15,7 +15,7 @@
 	<description>API Gateway to Spring Boot Application using Eureka Service Discovery</description>
 	<properties>
 		<java.version>25</java.version>
-		<spring-cloud.version>2025.1.2</spring-cloud.version>
+		<spring-cloud.version>2025.1.4</spring-cloud.version>
 		<jacoco.version>0.8.15</jacoco.version>
 		<jacoco.skip>false</jacoco.skip>
 	</properties>
